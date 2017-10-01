@@ -28,7 +28,6 @@ class LinkedList {
             
         }
         this.length++;
-        //return this._head instanceof Node;
     }
 
     head() {
@@ -44,13 +43,11 @@ class LinkedList {
         if (index >= this.length) {
             return "Cannot find item. Index is bigger than list's length";
         }
-        
-        //return " head: " + this._head.data + " next: " + this._head.next.data +"; tail: " + this._tail.data + "; list length = " + this.length;
         return this.next(index, count, this._head).data;
     }
 
     // This Method search item by forward step from _head
-    next(index, count, node) { //add new method 'cause it needed when search in our list.
+    next(index, count, node) { 
         if (count === index) {
             return node;
         } else {
@@ -86,7 +83,6 @@ class LinkedList {
         if (index == this.length - 1) { //last node in list
             this._tail.prev.next = 0;
             this._tail = this._tail.prev;
-            //update this._tail;
         } else if (index == 0) { //first node in list
             this._head.next.prev = 0;
             this._head = this._head.next;
