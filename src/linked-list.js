@@ -28,6 +28,7 @@ class LinkedList {
             
         }
         this.length++;
+        return this;
     }
 
     head() {
@@ -53,7 +54,8 @@ class LinkedList {
         } else {
             count++;
             return this.next(index, count, node.next);
-        } 
+        }
+        return this; 
     }
 
     insertAt(index, data) {
@@ -61,7 +63,8 @@ class LinkedList {
         if (index >= this.length) {
             return "Cannot insert item. Index is bigger than list's length";
         }
-        this.append(data, this.next(index - 1, count, this._head)); 
+        this.append(data, this.next(index - 1, count, this._head));
+        return this; 
     }
 
     isEmpty() {
@@ -69,13 +72,23 @@ class LinkedList {
     }
 
     clear() {
+        if (this.length == 0) {
+            return this;
+        }
         this.length = 0;
         this._head.data = null;
         this._head.next = null;
         this._tail = this._head;
+        return this;
     }
 
     deleteAt(index) {
+        if (this.length < 2) {
+            this.length = 0;
+            this._head = null;
+            this._tail = null;
+            return this;
+        }
         var count = 0;
         if (index >= this.length) {
             return "Cannot delete item. Index is bigger than list's length";
@@ -91,15 +104,19 @@ class LinkedList {
             deleteNode.next.prev = deleteNode.prev;
             deleteNode.prev.next = deleteNode.next;
         }
+        return this;
     }
 
     reverse() {
+        if (this.length < 2) {
+            return this;
+        }
         var node = this._head;
         var tempLink;
         for (var i = 0; i < this.length; i++) {
-            tempLink = node.prev;
-            node.prev = node.next;
-            node.next = tempLink;
+            tempLink = node.next;
+            node.next = node.prev;
+            node.prev = tempLink;
             if (i == 0) {
                 this._tail = node;
             }
@@ -107,8 +124,9 @@ class LinkedList {
                 this._head = node;
                 break;
             }
-            node = node.next;
+            node = node.prev;
         }
+        return this;
     }
 
     indexOf(data) {
